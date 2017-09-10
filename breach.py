@@ -4,6 +4,17 @@ This is a program for correctly interpreting arrays and their string contents
 and recognising if a hospital is struggling with breaching patients in A&E.
 """
 # import re
+test = """[['safe',' Safe','Safe'],'safe','safe','safe','safe']
+'safe',safe',safe',' breach',' breach ','breach '
+[['safe','Safe','Safe'],'safe','safe','safe','safe']
+'safe',safe',safe','breach',breach,breach
+[['safe','Safe','Safe'],'safe','safe','safe','safe']
+[['safe','Safe','Safe'],'safe','safe','safe','safe','breach','BREACH ' , 'BreacH','breach']
+[['safe','Safe','Safe'],'safe','safe','safe','safe']
+[['safe','Safe','Safe'],'safe','safe','safe','safe']
+[['safe','Safe','Safe'],'safe','safe','safe','safe']
+[['safe','Safe','Safe'],'safe','safe','safe','safe']"""
+test = test.split('\n')
 
 
 def formatList(line):
@@ -25,7 +36,7 @@ def formatList(line):
 def gradeHospital(array):
     """Take an array and grade the hospital based on the number of breaches."""
     if type(array) == list:
-        numBreaches = len(filter(lambda x: x == 'breach', array))
+        numBreaches = len(list(filter(lambda x: x == 'breach', array)))
         if numBreaches == 0:
             return 'Safe'
         elif numBreaches > 3:
@@ -38,8 +49,9 @@ def gradeHospital(array):
         exit(1)
 
 
-with open('datafile.txt', 'r') as f:
-    content = f.readlines()
+# with open('datafile.txt', 'r') as f:
+#     content = f.readlines()
+content = test
 # Format hospitals
 hospitals = map(formatList, content)
 # Grade hospitals
